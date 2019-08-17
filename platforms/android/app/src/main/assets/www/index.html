@@ -1,23 +1,4 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -30,46 +11,22 @@
 </head>
 <body ng-app="xPlat">
     <section id="todoapp" ng-controller="ToDoCtrl as toDoCtrl">
-        <header id="header">
-            <div id="headerBand"></div>
-            <input id="new-todo" placeholder="Please Write the things to be done." td-text-change="toDoCtrl.addToDo()" ng-model="toDoCtrl.newToDoText" autofocus>
-        </header>
-        <section id="main">
-            <div id="todo-list">
-                <div class="templateWrapper" ng-repeat="toDoItem in toDoCtrl.todos">
-                    <div class="templateContainer">
-                        <input class="templateTitle" ng-class="{crossedOut: toDoItem.done}" type="text" td-text-change="toDoCtrl.changeToDoText(toDoItem)" ng-model="toDoItem.text" />
-                        <h3 class="templateAddress">{{toDoItem.address}}</h3>
-                        <button class="templateLeft templateToggle" ng-class="{'checked': toDoItem.done, 'unchecked': !toDoItem.done}" ng-mousedown="toDoCtrl.toggleToDoDone(toDoItem)"></button>
-                        <button class="templateLeft templateRemove" ng-click="toDoCtrl.removeToDo(toDoItem)"></button>
-                    </div>
-                    <div class="templateBorder"></div>
-                </div>
-            </div>
-        </section>
+        <div id="myDIV" class="header">
+            <h2>My To Do List</h2>
+            <input type="text" id="myInput" placeholder="Title...">
+            <span onclick="newElement()" class="addBtn">Add</span>
+          </div>
+          
+          <ul id="myUL">
+            
+          </ul>
+          
     </section>
 
-    
-
-    <!-- AngularJS v1.4.6  -->
-    <script src="scripts/frameworks/angular.min.js"></script>
-    <script src="scripts/frameworks/angular-resource.min.js"></script>
-
-    <!-- Initialize all the modules -->
-    <script src="js/index.js"></script>
-
-    <!-- Services -->
-    <script src="scripts/services/localStorage.js"></script>
-    <script src="scripts/services/storage.js"></script>
-    <script src="scripts/services/guidGenerator.js"></script>
-    <script src="scripts/services/maps.js"></script>
-    <script src="scripts/services/cordova.js"></script>
-
-    <!-- Directives -->
-    <script src="scripts/directives/textChange.js"></script>
-
-    <!-- Controllers -->
-    <script src="scripts/controllers/toDoCtrl.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="jquery/jquery.mobile-1.4.3.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 
 </body>
 </html>
