@@ -1,107 +1,212 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-}
-
+/* reset layout*/
+html,
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
-    font-size:12px;
-    height:100vh;
-    margin:0px;
-    padding:0px;
-    /* Padding to avoid the "unsafe" areas behind notches in the screen */
-    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
-    text-transform:uppercase;
-    width:100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+/* body*/
+body {
+    background: #F7f7f7;
+    color: #4d4d4d;
+    margin: 0 auto;
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
+/* no outline for buttons & checkboxes*/
+button,
+input[type="checkbox"] {
+    outline: none;
+}
+
+/* style the todo app */
+#todoapp {
+    background: rgba(255, 255, 255, 0.9);
+    position: relative;
+    min-height: 86%;
+
+    border: none;
+    box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.2), 0px 25px 50px 0px rgba(0,0,0,0.15);
+}
+
+/* section styles*/
+@media (min-width: 650px) {
+    /* style the todo list to look better on larger screens */
+    #todoapp {
+        width: 74%;
+        left: 13%;
+        top: 50px;
+
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+    }
+
+    #headerBand {
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
     }
 }
 
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+/* the two red rulers*/
+#todoapp:before {
+    content: '';
+    border-style: solid;
+    border-left-color: rgba(242, 103, 103, 1);
+    border-right-color: rgba(242, 103, 103, 1);
+    border-width: 1px;
+    border-top: 0;
+    border-bottom: 0;
+    z-index: 2;
+    width: 2px;
+    position: absolute;
+    top: 0;
+    left: 40px;
+    height: 100%;
 }
 
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
+/* the header that contains the input */
+header {
+    height: 50px;
 }
 
-.event.listening {
-    background-color:#333333;
-    display:block;
+/* dark band on the header*/
+#headerBand {
+    position: relative;
+    height: 20%;
+    max-height: 20px;
+    border-bottom: 1px solid #6c615c;
+    background: rgba(52, 59, 69, 1);
 }
 
-.event.received {
-    background-color:#4B946A;
-    display:none;
+/* the new to-do entry*/
+#new-todo {
+    background: rgba(237, 237, 237, 0.9);
+    position: relative;
+    margin: 0;
+    height: 80%;
+    max-height: 70px;
+    font-size: 21px;
+    font-family: "Arial";
+    border: 0;
+    outline: none;
+    color: rgb(114, 115, 115);
+    padding: 0 0 0 56px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+/* the main section that hosts the listview*/
+#main {
+    position: relative;
+    z-index: 1;
+    border-top: 1px dotted #adadad;
 }
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+
+/* todo list */
+#todo-list {
+    margin: 0px;
+    overflow-y: auto;
 }
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+
+/* the host template */
+.templateWrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+/* blue border under the template */
+.templateBorder {
+    height: 0;
+    border-bottom: 2px solid #bfdbf2;
+}
+
+/* container for the todo-address div */
+.templateContainer {
+    margin: 4px 15px 0px 45px;
+}
+
+.templateContainer input[type="text"] {
+    font-size: 18px;
+    font-family: "Arial";
+    background: none;
+    color: #2d3239;
+    border: 1px solid rgba(0, 0, 0, 0);
+    line-height: 0.6em;
+    margin: 0px;
+    width: 100%;
+    display: block;
+    padding: 4px 0px 4px 10px;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+
+.templateContainer input[type="text"]:active,
+.templateContainer input[type="text"]:focus {
+    color: #2d3239;
+    border: 1px solid #b2b2b2;
+    outline: none;
+    margin-left: 2px;
+    text-decoration: none !important;
+    padding-left: 8px;
+}
+
+input[type="text"]:active ~ .templateRemove,
+input[type="text"]:focus ~ .templateRemove,
+.templateRemove:active,
+.templateRemove:focus {
+    display: inline-block;
+}
+
+input[type="text"]:active ~ .templateToggle,
+input[type="text"]:focus ~ .templateToggle,
+.templateRemove:active ~ .templateToggle,
+.templateRemove:focus ~ .templateToggle {
+    display: none;
+}
+
+.crossedOut.templateTitle {
+    text-decoration: line-through;
+}
+
+.templateContainer .templateAddress {
+    color: #727272;
+    font-size: 12px;
+    font-family: "Arial";
+    padding-top: 0px;
+    margin: 0px 0px 10px 11px;
+    font-weight: normal;
+}
+
+.templateContainer p {
+    margin: 0px 0px 4px 0px;
+}
+
+/* button on the templated item */
+button.templateLeft {
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    border: none;
+    width: 29px;
+    height: 29px;
+    min-width: 0;
+    min-height: 0;
+    background-color: transparent;
+}
+
+/* button when the item is checked */
+button.templateToggle.checked {
+    background-image: url('http://go.microsoft.com/fwlink/?LinkID=403179');
+}
+
+/* button when the item is unchecked */
+button.templateToggle.unchecked {
+    background-image: url('http://go.microsoft.com/fwlink/?LinkID=403180');
+}
+
+/* button for removing the item */
+button.templateRemove {
+    display: none;
+    background-image: url('http://go.microsoft.com/fwlink/?LinkID=403181');
 }
