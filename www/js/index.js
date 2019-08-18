@@ -4,7 +4,7 @@
       form = document.querySelector('form'),
       item = document.querySelector('#item');
   
-  form.addEventListener('submit',function(e){
+  document.getElementById("addBtn").addEventListener('click',function(e){
     e.preventDefault();
     list.innerHTML += '<li>' + item.value + '</li>';
     store();
